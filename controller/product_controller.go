@@ -1,4 +1,4 @@
-package controllers
+package controller
 
 import (
 	"net/http"
@@ -14,7 +14,7 @@ import (
 func AddProduct(c echo.Context) error {
 	product := model.Product{}
 	c.Bind(&product)
-
+	
 	err := config.DB.Save(&product).Error
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{

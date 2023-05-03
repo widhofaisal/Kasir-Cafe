@@ -21,7 +21,7 @@ func GetHelloWorld(c echo.Context) error {
 func Login(c echo.Context) error {
 	admin := model.Admin{}
 	c.Bind(&admin)
-
+	c.Get("user")
 	err := config.DB.Where("username=? AND password=?", admin.Username, admin.Password).First(&admin).Error
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
