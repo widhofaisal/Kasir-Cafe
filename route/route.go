@@ -17,12 +17,16 @@ func New() *echo.Echo {
 	// Authentication JWT
 	authJWT := e.Group("")
 	authJWT.Use(mid.JWT([]byte(constant.SECRET_JWT)))
+
 	authJWT.GET("/admins", controller.GetAdmins)
+
 	authJWT.GET("/products", controller.GetProducts)
 	authJWT.GET("/products/:id", controller.GetProductsById)
 	authJWT.POST("/products", controller.AddProduct)
 	authJWT.PUT("/products/:id", controller.UpdateProduct)
 	authJWT.DELETE("/products/:id", controller.DeleteProduct)
+
+	authJWT.POST("/carts", controller.AddCart)
 
 	return e
 }
