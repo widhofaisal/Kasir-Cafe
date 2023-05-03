@@ -10,6 +10,7 @@ Endpoint :
 7. PUT      UpdateProduct       ✅      /products:id        products_controller.go 
 8. DELETE   DeleteProduct       ✅      /products:id        products_controller.go 
 9. POST     AddCart             ❌      /carts              carts_controllers.go          
+10. POST    UpdateCart          ✅      /carts              carts_controllers.go          
 
 
 
