@@ -1,17 +1,16 @@
 package controller
 
 import (
-	"net/http"
-	"strconv"
 	_ "fmt"
 	"net/http"
+	"strconv"
 
 	"kasir/cafe/config"
 	"kasir/cafe/model"
 
 	"github.com/labstack/echo/v4"
-  
-  "gorm.io/gorm"
+
+	"gorm.io/gorm"
 
 	_ "github.com/google/uuid"
 )
@@ -45,7 +44,7 @@ func AddCart(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success create cart",
 		"user":    cart,
-    })
+	})
 }
 
 // Endpoint 10 : UpdateCart
@@ -70,7 +69,5 @@ func UpdateCart(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success update cart by id",
 		"data":    cart,
-	
-)
-
-	
+	})
+}
