@@ -25,6 +25,9 @@ func New() *echo.Echo {
 	authJWT.POST("/products", controller.AddProduct)
 	authJWT.PUT("/products/:id", controller.UpdateProduct)
 	authJWT.DELETE("/products/:id", controller.DeleteProduct)
+	
+	authJWT.PUT("/carts/:id", controller.UpdateCart)
+
 
 	authJWT.POST("/carts", controller.AddCart)
 
