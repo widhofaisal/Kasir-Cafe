@@ -10,32 +10,39 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Endpoint 0 : GetHelloWorld
-func GetHelloWorld(c echo.Context) error {
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "Hello World My Name Widho Faisal Hakim",
+// Endpoint 0 : hello_world
+func Hello_world(c echo.Context) error {
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  200,
+		Message: "Hello World. KasirCafe made by Widho Faisal Hakim",
+		Data:    nil,
+		Error:   nil,
 	})
 }
 
-// Endpoint 2 : Login
+// Endpoint 2 : login
 func Login(c echo.Context) error {
 	admin := model.Admin{}
 	c.Bind(&admin)
 	c.Get("user")
 	err := config.DB.Where("username=? AND password=?", admin.Username, admin.Password).First(&admin).Error
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "failed login",
-			"error":   err.Error(),
+		return c.JSON(http.StatusUnauthorized, model.HttpResponse{
+			Status:  401,
+			Message: "failed login, username or password false",
+			Data:    nil,
+			Error:   err.Error(),
 		})
 	}
 
 	// generate jwt token
 	token, err := middleware.CreateToken(admin.Username, admin.Password)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "failed generate token",
-			"error":   err.Error(),
+		return c.JSON(http.StatusInternalServerError, model.HttpResponse{
+			Status:  500,
+			Message: "failed generate token",
+			Data:    nil,
+			Error:   err.Error(),
 		})
 	}
 
@@ -46,19 +53,26 @@ func Login(c echo.Context) error {
 		Token:    token,
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success login",
-		"user":    adminResponse,
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  200,
+		Message: "success login",
+		Data:    adminResponse,
+		Error:   nil,
 	})
 }
 
-// Endpoint 3 : GetAdmins
-func GetAdmins(c echo.Context) error {
+// Endpoint 3 : get_admins
+func Get_admins(c echo.Context) error {
 	var admins []model.Admin
 	var adminResponse []model.AdminResponse
 
 	if err := config.DB.Find(&admins).Error; err != nil {
-		return c.JSON(http.StatusBadRequest, err.Error())
+		return c.JSON(http.StatusInternalServerError, model.HttpResponse{
+			Status:  500,
+			Message: "failed get all admin",
+			Data:    nil,
+			Error:   err.Error(),
+		})
 	}
 
 	for _, admin := range admins {
@@ -70,8 +84,10 @@ func GetAdmins(c echo.Context) error {
 		adminResponse = append(adminResponse, person)
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success get admins",
-		"admins":  adminResponse,
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  500,
+		Message: "success get all admin",
+		Data:    adminResponse,
+		Error:   nil,
 	})
 }

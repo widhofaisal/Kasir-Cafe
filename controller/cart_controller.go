@@ -15,8 +15,8 @@ import (
 	_ "github.com/google/uuid"
 )
 
-// Endpoint 9 : AddProduct
-func AddCart(c echo.Context) error {
+// Endpoint 9 : add_cart
+func Add_cart(c echo.Context) error {
 	var cart model.Cart
 	c.Bind(&cart)
 
@@ -24,9 +24,11 @@ func AddCart(c echo.Context) error {
 	var product model.Product
 	isExist_IdProduct := config.DB.First(&product, cart.Id_product)
 	if isExist_IdProduct.Error == gorm.ErrRecordNotFound {
-		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"message": "id product not found",
-			"error":   isExist_IdProduct.Error.Error(),
+		return c.JSON(http.StatusNotFound, model.HttpResponse{
+			Status:  404,
+			Message: "id product not found",
+			Data:    nil,
+			Error:   isExist_IdProduct.Error.Error(),
 		})
 	}
 
@@ -37,10 +39,20 @@ func AddCart(c echo.Context) error {
 		// id_product is exist in table cart
 
 		cart2.Quantity += cart.Quantity
-		config.DB.Save(&cart2)
-		return c.JSON(http.StatusOK, map[string]interface{}{
-			"message": "success update quantity",
-			"user":    cart2,
+		err := config.DB.Save(&cart2).Error
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, model.HttpResponse{
+				Status:  400,
+				Message: "failed add cart, invalid data format",
+				Data:    nil,
+				Error:   err.Error(),
+			})
+		}
+		return c.JSON(http.StatusOK, model.HttpResponse{
+			Status:  200,
+			Message: "success update quantity",
+			Data:    cart2,
+			Error:   nil,
 		})
 	}
 
@@ -49,76 +61,130 @@ func AddCart(c echo.Context) error {
 
 	err := config.DB.Save(&cart).Error
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "failed add cart",
-			"error":   err.Error(),
+		return c.JSON(http.StatusBadRequest, model.HttpResponse{
+			Status:  400,
+			Message: "failed add cart, invalid data format",
+			Data:    nil,
+			Error:   err.Error(),
 		})
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success create cart",
-		"user":    cart,
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  200,
+		Message: "success create cart",
+		Data:    cart,
+		Error:   nil,
 	})
 }
 
-// Endpoint 10 : UpdateCart
-func UpdateCart(c echo.Context) error {
+// Endpoint 10 : update_cart
+func Update_cart(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	var cart model.Cart
 
 	err := config.DB.First(&cart, id).Error
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "failed update, no cart with matches id",
-			"id":      id,
+		return c.JSON(http.StatusNotFound, model.HttpResponse{
+			Status:  404,
+			Message: "failed update, no cart with matches id",
+			Data:    nil,
+			Error:   err.Error(),
 		})
 	}
 
 	err2 := c.Bind(&cart)
 	if err2 != nil {
-		return c.JSON(http.StatusBadRequest, err.Error())
+		return c.JSON(http.StatusBadRequest, model.HttpResponse{
+			Status:  400,
+			Message: "failed binding, invalid data format",
+			Data:    nil,
+			Error:   err2.Error(),
+		})
 	}
-	config.DB.Save(&cart)
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success update cart by id",
-		"data":    cart,
+	err3 := config.DB.Save(&cart).Error
+	if err3 != nil {
+		return c.JSON(http.StatusBadRequest, model.HttpResponse{
+			Status:  400,
+			Message: "failed update cart, invalid data format",
+			Data:    nil,
+			Error:   err3.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  200,
+		Message: "success update cart by id",
+		Data:    cart,
+		Error:   nil,
 	})
 }
 
-// Endpoint 11 : GetCart
-func GetCarts(c echo.Context) error {
+// Endpoint 11 : get_carts
+func Get_carts(c echo.Context) error {
 	var cart []model.Cart
 
 	err := config.DB.Find(&cart).Error
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "failed get all carts",
-			"error":   err.Error(),
+		return c.JSON(http.StatusInternalServerError, model.HttpResponse{
+			Status:  500,
+			Message: "failed get all cart",
+			Data:    nil,
+			Error:   err.Error(),
 		})
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success get all carts",
-		"admins":  cart,
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  200,
+		Message: "success get all cart",
+		Data:    cart,
+		Error:   nil,
 	})
 }
 
-// Endpoint 12 : GetCartById
-func GetCartById(c echo.Context) error {
+// Endpoint 12 : get_carts_by_id
+func Get_carts_by_id(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	var cart model.Cart
 
 	err := config.DB.First(&cart, id).Error
 	if err == gorm.ErrRecordNotFound {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"message": "failed get cart by id",
-			"error":   err.Error(),
+		return c.JSON(http.StatusNotFound, model.HttpResponse{
+			Status:  404,
+			Message: "failed get cart, id not found",
+			Data:    nil,
+			Error:   err.Error(),
 		})
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "success get cart by id",
-		"admins":  cart,
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  200,
+		Message: "success get cart by id",
+		Data:    cart,
+		Error:   nil,
+	})
+}
+
+// Endpoint 13 : delete_cart
+func Delete_cart(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	var cart model.Cart
+
+	err := config.DB.First(&cart, id).Error
+	if err != nil {
+		return c.JSON(http.StatusNotFound, model.HttpResponse{
+			Status:  404,
+			Message: "failed delete, id not found",
+			Data:    nil,
+			Error:   err.Error(),
+		})
+	}
+	config.DB.Delete(&cart)
+
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  200,
+		Message: "success delete cart",
+		Data:    cart,
+		Error:   nil,
 	})
 }

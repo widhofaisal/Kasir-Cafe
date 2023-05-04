@@ -1,18 +1,19 @@
 # Kasir Cafe by Widho Faisal Hakim
 
 Endpoint :
-1. GET      GetHelloWorld       ✅      /hello              admin_controller.go 
+1. GET      Hello_world         ✅      /hello              admin_controller.go 
 2. POST     Login               ✅      /admins/login       admin_controller.go 
-3. GET      GetAdmins           ✅      /admins             admin_controller.go 
-4. POST     AddProduct          ✅      /products           product_controller.go 
-5. GET      GetProducts         ✅      /products           product_controller.go 
-6. GET      GetProductById      ✅      /products:id        product_controller.go 
-7. PUT      UpdateProduct       ✅      /products:id        product_controller.go 
-8. DELETE   DeleteProduct       ✅      /products:id        product_controller.go 
-9. POST     AddCart             ✅      /carts              cart_controller.go   
-10. PUT    UpdateCart           ✅      /carts              carts_controllers.go  
-11. GET    GetCart              ✅      /carts              carts_controllers.go  
-12. GET    GetCartById          ✅      /carts/:id          carts_controllers.go  
+3. GET      Get_admins          ✅      /admins             admin_controller.go 
+4. POST     Add_product         ✅      /products           product_controller.go 
+5. GET      Get_products        ✅      /products           product_controller.go 
+6. GET      Get_product_by_id   ✅      /products:id        product_controller.go 
+7. PUT      Update_product      ✅      /products:id        product_controller.go 
+8. DELETE   Delete_product      ✅      /products:id        product_controller.go 
+9. POST     Add_cart            ✅      /carts              cart_controller.go   
+10. PUT     Update_cart         ✅      /carts              carts_controllers.go  
+11. GET     Get_carts           ✅      /carts              carts_controllers.go  
+12. GET     Get_cart_by_id      ✅      /carts/:id          carts_controllers.go  
+13. DELETE  Delete_cart         ✅      /carts/:id          carts_controllers.go  
 
 
 
