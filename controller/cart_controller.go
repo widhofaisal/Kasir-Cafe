@@ -30,6 +30,20 @@ func AddCart(c echo.Context) error {
 		})
 	}
 
+	// checking 2 : is exist product in cart
+	var cart2 model.Cart
+	isExist_ProductinCart := config.DB.Where("id_product=?", cart.Id_product).First(&cart2)
+	if isExist_ProductinCart.Error == nil {
+		// id_product is exist in table cart
+
+		cart2.Quantity += cart.Quantity
+		config.DB.Save(&cart2)
+		return c.JSON(http.StatusOK, map[string]interface{}{
+			"message": "success update quantity",
+			"user":    cart2,
+		})
+	}
+
 	// fill price
 	cart.Price = product.Price
 
