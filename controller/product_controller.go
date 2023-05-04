@@ -115,6 +115,7 @@ func Update_product(c echo.Context) error {
 func Delete_product(c echo.Context) error {
 	var product model.Product
 	id, _ := strconv.Atoi(c.Param("id"))
+	
 	err := config.DB.First(&product, id).Error
 	if err != nil {
 		return c.JSON(http.StatusNotFound, model.HttpResponse{

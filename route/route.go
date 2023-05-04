@@ -30,6 +30,7 @@ func New() *echo.Echo {
 	authJWT.PUT("/carts/:id", controller.Update_cart)
 	authJWT.GET("/carts", controller.Get_carts)
 	authJWT.GET("/carts/:id", controller.Get_carts_by_id)
+	authJWT.DELETE("/carts/:id", controller.Delete_cart)
 
 	return e
 }

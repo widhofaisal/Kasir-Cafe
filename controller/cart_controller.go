@@ -164,3 +164,27 @@ func Get_carts_by_id(c echo.Context) error {
 		Error:   nil,
 	})
 }
+
+// Endpoint 13 : delete_cart
+func Delete_cart(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	var cart model.Cart
+
+	err := config.DB.First(&cart, id).Error
+	if err != nil {
+		return c.JSON(http.StatusNotFound, model.HttpResponse{
+			Status:  404,
+			Message: "failed delete, id not found",
+			Data:    nil,
+			Error:   err.Error(),
+		})
+	}
+	config.DB.Delete(&cart)
+
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  200,
+		Message: "success delete cart",
+		Data:    cart,
+		Error:   nil,
+	})
+}

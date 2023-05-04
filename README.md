@@ -12,7 +12,8 @@ Endpoint :
 9. POST     Add_cart            ✅      /carts              cart_controller.go   
 10. PUT     Update_cart         ✅      /carts              carts_controllers.go  
 11. GET     Get_carts           ✅      /carts              carts_controllers.go  
-12. GET     Get_carts_by_id     ✅      /carts/:id          carts_controllers.go  
+12. GET     Get_cart_by_id      ✅      /carts/:id          carts_controllers.go  
+13. DELETE  Delete_cart         ✅      /carts/:id          carts_controllers.go  
 
 
 
