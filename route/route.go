@@ -26,10 +26,10 @@ func New() *echo.Echo {
 	authJWT.PUT("/products/:id", controller.UpdateProduct)
 	authJWT.DELETE("/products/:id", controller.DeleteProduct)
 	
-	authJWT.PUT("/carts/:id", controller.UpdateCart)
-
-
 	authJWT.POST("/carts", controller.AddCart)
+	authJWT.PUT("/carts/:id", controller.UpdateCart)
+	
+	
 
 	return e
 }
