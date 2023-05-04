@@ -6,7 +6,6 @@ type Admin struct {
 	Phone    string `json:"phone" form:"phone"`
 	Address  string `json:"address" form:"address"`
 	Password string `json:"password" form:"password"`
-	Token    string `json:"token" form:"token"`
 }
 
 type LoginResponse struct {
