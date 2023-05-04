@@ -85,3 +85,40 @@ func UpdateCart(c echo.Context) error {
 		"data":    cart,
 	})
 }
+
+// Endpoint 11 : GetCart
+func GetCarts(c echo.Context) error {
+	var cart []model.Cart
+
+	err := config.DB.Find(&cart).Error
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "failed get all carts",
+			"error":   err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success get all carts",
+		"admins":  cart,
+	})
+}
+
+// Endpoint 12 : GetCartById
+func GetCartById(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	var cart model.Cart
+
+	err := config.DB.First(&cart, id).Error
+	if err == gorm.ErrRecordNotFound {
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": "failed get cart by id",
+			"error":   err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success get cart by id",
+		"admins":  cart,
+	})
+}
