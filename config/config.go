@@ -34,6 +34,16 @@ func InitDB(){
 		DB_Name:     "kasircafe_db",
 	}
 
+	// config for connect rds 
+	// use this when deploy using docker
+	// config_rds := Config{
+	// 	DB_Username: "ownerwidho",
+	// 	DB_Password: "kasircafeceria123",
+	// 	DB_Port:     "3306",
+	// 	DB_Host:     "db-kasircafe.ctbpmx2n7zth.ap-southeast-2.rds.amazonaws.com",
+	// 	DB_Name:     "db_kasircafe",
+	// }
+
 	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		config.DB_Username,
 		config.DB_Password,
