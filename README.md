@@ -17,10 +17,25 @@ Endpoint :
 
 
 
-Add on:
-- middleware
-- unit testing
-- docker
-- AWS EC2
-- RDS
-- CI/CD
+Penilaian Mini Project :
+1. MVP :
+  - Login                               ✅
+  - CRUD admin                          ✅
+  - CRUD payment                        ❌
+  - CRUD product                        ✅    
+  - Midtrans                            ❌
+2. Git workflow                         ❌
+3. Presentation                         ❌
+4. Tech innovation                      ❌
+5. Design ERD (figma)                   ❌
+6. Design Rest API (swagger/postman)    ❌
+7. Backend project :
+   - ORM                                ✅
+   - MVC                                ✅
+   - Unit testing                       ❌
+   - Middleware JWT                     ✅
+   - 3rd party API (midtrans)           ❌
+8. Deployment :     
+   - Docker                             ✅
+   - Compute service (AWS EC2 & RDS)    ✅
+   - CI/CD                              ❌
