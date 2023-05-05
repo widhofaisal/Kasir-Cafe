@@ -39,3 +39,10 @@ Penilaian Mini Project :
    - Docker                             ✅
    - Compute service (AWS EC2 & RDS)    ✅
    - CI/CD                              ❌
+
+fix :
+- enkripsi password admin, tembak db input hashing nya, berarti di endpoint 2 tambahi encode password (text ke hash)
+  
+to do :
+- bikin table payment dan lakukan payment manual dulu
+- implementasi midtrans
