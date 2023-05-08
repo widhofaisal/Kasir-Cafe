@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	_ "fmt"
 	"net/http"
 	"strconv"
@@ -185,6 +186,74 @@ func Delete_cart(c echo.Context) error {
 		Status:  200,
 		Message: "success delete cart",
 		Data:    cart,
+		Error:   nil,
+	})
+}
+
+// Endpoint 14 : Get_nota
+func Get_nota(c echo.Context) error {
+	type nota_request struct {
+		Buyer_name string
+		Phone      string
+	}
+
+	var nota nota_request
+	c.Bind(&nota)
+	fmt.Println("nota", nota)
+	var cart []model.Cart
+	err := config.DB.Where("buyer_name=? AND phone=?", nota.Buyer_name, nota.Phone).Find(&cart).Error
+	if err == gorm.ErrRecordNotFound {
+		return c.JSON(http.StatusNotFound, model.HttpResponse{
+			Status:  404,
+			Message: "failed get nota, buyer_name or phone not found",
+			Data:    nil,
+			Error:   err.Error(),
+		})
+	}
+	
+	if len(cart)==0{
+		return c.JSON(http.StatusNotFound, model.HttpResponse{
+			Status:  404,
+			Message: "failed get nota, buyer_name or phone not found",
+			Data:    nil,
+			Error:   err,
+		})
+	}
+
+	type menu struct {
+		Id          int
+		Name        string
+		Quantity    int
+		Price       int
+		Total_price int
+	}
+
+	type nota_respone struct {
+		Customer nota_request
+		Menu     []menu
+	}
+
+	var response nota_respone
+	response.Customer.Buyer_name = nota.Buyer_name
+	response.Customer.Phone = nota.Phone
+	for _, item := range cart {
+		var product model.Product
+		config.DB.First(&product, item.Id_product)
+
+		fmt.Println(product)
+		var temp menu
+		temp.Id = int(product.ID)
+		temp.Name = product.Name
+		temp.Quantity = item.Quantity
+		temp.Price = item.Price
+		temp.Total_price = item.Price * item.Quantity
+		response.Menu = append(response.Menu, temp)
+	}
+
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  200,
+		Message: "success get nota",
+		Data:    response,
 		Error:   nil,
 	})
 }
