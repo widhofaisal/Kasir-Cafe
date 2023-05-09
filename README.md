@@ -25,10 +25,10 @@ Penilaian Mini Project :
 1. MVP :
   - Login                               ✅
   - CRUD admin                          ✅
-  - CRUD payment                        ❌
+  - CRUD payment                        ✅ 
   - CRUD product                        ✅    
   - Midtrans                            ❌
-2. Git workflow                         ❌
+2. Git workflow                         ✅ 
 3. Presentation                         ❌
 4. Tech innovation                      ❌
 5. Design ERD (figma)                   ❌
