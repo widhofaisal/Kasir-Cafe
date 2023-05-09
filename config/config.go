@@ -3,21 +3,21 @@ package config
 import (
 	"fmt"
 
-	"gorm.io/gorm"
 	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 	"kasir/cafe/model"
 )
 
-var(
+var (
 	DB *gorm.DB
 )
 
-func init(){
+func init() {
 	InitDB()
 	InitialMigration()
 }
 
-type Config struct{
+type Config struct {
 	DB_Username string
 	DB_Password string
 	DB_Port     string
@@ -25,7 +25,7 @@ type Config struct{
 	DB_Name     string
 }
 
-func InitDB(){
+func InitDB() {
 	config := Config{
 		DB_Username: "root",
 		DB_Password: "",
@@ -34,7 +34,7 @@ func InitDB(){
 		DB_Name:     "kasircafe_db",
 	}
 
-	// config for connect rds 
+	// config for connect rds
 	// use this when deploy using docker
 	// config_rds := Config{
 	// 	DB_Username: "ownerwidho",
@@ -60,5 +60,5 @@ func InitDB(){
 }
 
 func InitialMigration() {
-	DB.AutoMigrate(&model.Admin{}, &model.Product{}, &model.Cart{})
+	DB.AutoMigrate(&model.Admin{}, &model.Product{}, &model.Cart{}, &model.Payment{})
 }

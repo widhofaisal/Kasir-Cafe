@@ -32,6 +32,9 @@ func New() *echo.Echo {
 	authJWT.GET("/carts/:id", controller.Get_carts_by_id)
 	authJWT.GET("/carts/nota", controller.Get_nota)
 	authJWT.DELETE("/carts/:id", controller.Delete_cart)
-
+	
+	authJWT.POST("/payments", controller.Add_payment)
+	authJWT.PUT("/payments/:id", controller.Paid)
+	
 	return e
 }
