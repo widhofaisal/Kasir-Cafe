@@ -15,6 +15,8 @@ Endpoint :
 12. GET     Get_cart_by_id      ✅      /carts/:id          carts_controllers.go  
 13. DELETE  Delete_cart         ✅      /carts/:id          carts_controllers.go  
 14. GET     Get_nota            ✅      /carts/nota         carts_controllers.go  
+15. POST    Add_payment         ✅      /payments           payment_controllers.go  
+16. PUT     Paid                ✅      /payments/:id       payment_controllers.go  
 
 
 
