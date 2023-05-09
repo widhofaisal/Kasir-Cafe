@@ -17,6 +17,7 @@ Endpoint :
 14. GET     Get_nota            ✅      /carts/nota         carts_controllers.go  
 15. POST    Add_payment         ✅      /payments           payment_controllers.go  
 16. PUT     Paid                ✅      /payments/:id       payment_controllers.go  
+17. GET     Total_income        ✅      /income             payment_controllers.go  
 
 
 

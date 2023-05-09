@@ -104,7 +104,7 @@ func Paid(c echo.Context) error {
 			Error:   err.Error(),
 		})
 	}
-	fmt.Println(paid.Pay,"-",payment.Total_price)
+	fmt.Println(paid.Pay, "-", payment.Total_price)
 	if paid.Pay-payment.Total_price < 0 {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"message": "failed to paid, need more money or insufficient balance",
@@ -141,6 +141,29 @@ func Paid(c echo.Context) error {
 			"pay":             paid.Pay,
 			"change":          paid.Pay - payment.Total_price,
 			"updated payment": payment,
+		},
+		Error: nil,
+	})
+}
+
+// Endpoint 17 : total_income
+func Total_income(c echo.Context) error {
+	var income int
+	err := config.DB.Table("payments").Select("SUM(total_price)").Scan(&income).Error
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, model.HttpResponse{
+			Status:  500,
+			Message: "failed get all product",
+			Data:    nil,
+			Error:   err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, model.HttpResponse{
+		Status:  200,
+		Message: "success get all products",
+		Data: map[string]interface{}{
+			"income": income,
 		},
 		Error: nil,
 	})
