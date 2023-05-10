@@ -1,0 +1,27 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: Go
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy
+      uses: actions/setup-go@v3
+      with:
+        host: ${{ secret.HOST }}
+        username: ${{ secret.USERNAME }}
+        key: ${{ secret.PRIVATE_KEY }}
+        port: 22
+        script:
+          ls -la
+          cd Kasir-Cafe/
+          git pull
+          go build -o main 
+          sudo systemctl restart kasircafe.service
