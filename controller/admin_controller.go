@@ -29,7 +29,7 @@ func Hello_world(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, model.HttpResponse{
 		Status:  200,
-		Message: "Welcome to the Kasir Cafe application",
+		Message: "Welcome to the Kasir Cafe application. Copyright 2023",
 		Data: map[string]interface{}{
 			"owner":     "Widho Faisal Hakim",
 			"github":    "https://github.com/widhofaisal/Kasir-Cafe",
