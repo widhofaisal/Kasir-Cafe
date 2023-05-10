@@ -27,9 +27,10 @@ func Hello_world(c echo.Context) error {
 		Status:  200,
 		Message: "Welcome to the Kasir Cafe application",
 		Data: map[string]interface{}{
-			"owner":  "Widho Faisal Hakim",
-			"github": "https://github.com/widhofaisal/Kasir-Cafe",
-			"income": income,
+			"owner":     "Widho Faisal Hakim",
+			"github":    "https://github.com/widhofaisal/Kasir-Cafe",
+			"instagram": "https://www.instagram.com/whydhoo/",
+			"income":    income,
 		},
 		Error: nil,
 	})
