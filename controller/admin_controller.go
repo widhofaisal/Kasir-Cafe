@@ -12,10 +12,10 @@ import (
 
 // Endpoint 0 : hello_world
 func Hello_world(c echo.Context) error {
-	income :=0
+	income := 0
 	var payment []model.Payment
 	config.DB.Find(&payment)
-	if len(payment)!=0{
+	if len(payment) != 0 {
 		err := config.DB.Table("payments").Select("SUM(total_price)").Scan(&income).Error
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, model.HttpResponse{
@@ -35,7 +35,8 @@ func Hello_world(c echo.Context) error {
 			"github":    "https://github.com/widhofaisal/Kasir-Cafe",
 			"instagram": "https://www.instagram.com/whydhoo/",
 			"income":    income,
-			"CI/CD":     true,
+			"CI":        false,
+			"CD":        true,
 		},
 		Error: nil,
 	})
