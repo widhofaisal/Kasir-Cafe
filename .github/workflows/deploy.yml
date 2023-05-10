@@ -23,6 +23,6 @@ jobs:
         script: |
           ls -la
           cd Kasir-Cafe/
-          git pull
-          go build -o main 
+          sudo git pull
+          sudo go build -o main 
           sudo systemctl restart kasircafe.service
