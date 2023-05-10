@@ -12,15 +12,19 @@ import (
 
 // Endpoint 0 : hello_world
 func Hello_world(c echo.Context) error {
-	var income int
-	err := config.DB.Table("payments").Select("SUM(total_price)").Scan(&income).Error
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, model.HttpResponse{
-			Status:  500,
-			Message: "failed get all product",
-			Data:    nil,
-			Error:   err.Error(),
-		})
+	income :=0
+	var payment []model.Payment
+	config.DB.Find(&payment)
+	if len(payment)!=0{
+		err := config.DB.Table("payments").Select("SUM(total_price)").Scan(&income).Error
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, model.HttpResponse{
+				Status:  500,
+				Message: "failed get all product",
+				Data:    nil,
+				Error:   err.Error(),
+			})
+		}
 	}
 
 	return c.JSON(http.StatusOK, model.HttpResponse{
