@@ -12,11 +12,25 @@ import (
 
 // Endpoint 0 : hello_world
 func Hello_world(c echo.Context) error {
+	var income int
+	err := config.DB.Table("payments").Select("SUM(total_price)").Scan(&income).Error
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, model.HttpResponse{
+			Status:  500,
+			Message: "failed get all product",
+			Data:    nil,
+			Error:   err.Error(),
+		})
+	}
+
 	return c.JSON(http.StatusOK, model.HttpResponse{
 		Status:  200,
-		Message: "Hello World. KasirCafe made by Widho Faisal Hakim",
-		Data:    nil,
-		Error:   nil,
+		Message: "Welcome to the Kasir Cafe application",
+		Data: map[string]interface{}{
+			"owner":  "Widho Faisal Hakim",
+			"income": income,
+		},
+		Error: nil,
 	})
 }
 
