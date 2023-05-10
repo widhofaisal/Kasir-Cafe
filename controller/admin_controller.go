@@ -31,6 +31,7 @@ func Hello_world(c echo.Context) error {
 			"github":    "https://github.com/widhofaisal/Kasir-Cafe",
 			"instagram": "https://www.instagram.com/whydhoo/",
 			"income":    income,
+			"CI/CD":     true,
 		},
 		Error: nil,
 	})
