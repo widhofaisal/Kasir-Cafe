@@ -37,6 +37,7 @@ func Hello_world(c echo.Context) error {
 			"income":    income,
 			"CI":        false,
 			"CD":        true,
+			"Docker":    true,
 		},
 		Error: nil,
 	})
