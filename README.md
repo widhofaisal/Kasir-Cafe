@@ -31,7 +31,7 @@ Penilaian Mini Project :
 2. Git workflow                         ✅ 
 3. Presentation                         ❌
 4. Tech innovation                      ❌
-5. Design ERD (figma)                   ❌
+5. Design ERD (figma)                   ✅
 6. Design Rest API (swagger/postman)    ❌
 7. Backend project :
    - ORM                                ✅
@@ -42,11 +42,5 @@ Penilaian Mini Project :
 8. Deployment :     
    - Docker                             ✅
    - Compute service (AWS EC2 & RDS)    ✅
-   - CI/CD                              ❌
-
-fix :
-- enkripsi password admin, tembak db input hashing nya, berarti di endpoint 2 tambahi encode password (text ke hash)
-  
-to do :
-- bikin table payment dan lakukan payment manual dulu
-- implementasi midtrans
+   - CI                                 ❌
+   - CD                                 ✅
