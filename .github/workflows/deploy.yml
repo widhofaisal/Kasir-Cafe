@@ -24,7 +24,5 @@ jobs:
           ls -la
           cd Kasir-Cafe/
           sudo git pull
-          sudo docker stop kasircafe
-          sudo docker rm kasircafe
-          sudo docker build -t kasir-cafe .
-          sudo docker run -p 8000:8000 -d --name kasircafe widhofaisal/kasircafe
+          sudo go build -o main 
+          sudo systemctl restart kasircafe.service
