@@ -26,7 +26,7 @@ func Add_payment(c echo.Context) error {
 	if err == gorm.ErrRecordNotFound {
 		return c.JSON(http.StatusNotFound, model.HttpResponse{
 			Status:  404,
-			Message: "failed get nota, buyer_name or phone not found",
+			Message: "failed add payment, buyer_name or phone not found",
 			Data:    nil,
 			Error:   err.Error(),
 		})
@@ -35,7 +35,7 @@ func Add_payment(c echo.Context) error {
 	if len(cart) == 0 {
 		return c.JSON(http.StatusNotFound, model.HttpResponse{
 			Status:  404,
-			Message: "failed get nota, buyer_name or phone not found",
+			Message: "failed add payment, buyer_name or phone not found",
 			Data:    nil,
 			Error:   err,
 		})
